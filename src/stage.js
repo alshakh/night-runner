@@ -13,6 +13,8 @@ var Stage = function() {
     this.add(t);
   }
 
+  // dome
+
   //
   this.backLimit = 0;
 };
@@ -46,12 +48,11 @@ var Runner = function(debug) {
   this.light = new THREE.PointLight(0xffffff);
   this.renderer = new THREE.WebGLRenderer();
 
+
   this.stage = new Stage();
   this.scene.add(this.stage);
-  this.scene.add(new THREE.Mesh(new THREE.SphereGeometry(1),new THREE.MeshBasicMaterial({color:0xff0000})));
 
-  //this.scene.add(new THREE.Mesh(new THREE.BoxGeometry(1,1), new THREE.MeshBasicMaterial({color:0xff0000})));
-  //this.scene.add(new Tree(54));
+
   // init
   /// camera
   var cam = this.camera;
@@ -110,7 +111,7 @@ Runner.prototype.update = function(t) {
 
   // update stage
   this.stage.update(this.camera.position.y);
-  
+
   // update light
   this.light.y = this.camera.position.y;
   this.light.x = this.camera.position.x;

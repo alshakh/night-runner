@@ -1,3 +1,4 @@
+
 "strict mode";
 var createRandom = function(s) {
   if(s === undefined) s = 7; // random seed
@@ -102,11 +103,17 @@ var Tree = function(seed, radius) {
 
   this.add(createBranch(radius, length));
 
-
-
   function createBranch(radius, length) {
     var noise = function() {
       return 0.8 + me.random.next() * 0.4;
+    };
+
+    var createBranchTrunkObject3D = function(radius,length) {
+      var b = new THREE.Mesh( me.consts.branchGeometry, me.consts.branchMaterial);
+      b.scale.set(radius,length,radius);
+      b.position.z = length / 2;
+      b.rotation.x = Math.PI / 2;
+      return b;
     };
 
     if (radius <= me.consts.radiusTerminator) {
@@ -118,10 +125,8 @@ var Tree = function(seed, radius) {
 
     var myRadius = radius;
     var myLength = length;
-    var b = new THREE.Mesh(
-      new THREE.CylinderGeometry(myRadius * 0.6, myRadius, myLength), me.consts.material);
-    b.position.z = myLength / 2;
-    b.rotation.x = Math.PI / 2;
+
+    var b = createBranchTrunkObject3D(myRadius,myLength);
     branch.add(b);
 
     var q = 0;
@@ -145,10 +150,11 @@ Tree.prototype = Object.create(THREE.Object3D.prototype);
 Tree.prototype.constructor = Tree;
 Tree.prototype.consts = {};
 Tree.prototype.consts.texture = THREE.ImageUtils.loadTexture("../images/bark-rough.jpg");
-Tree.prototype.consts.material = new THREE.MeshLambertMaterial({
+Tree.prototype.consts.branchMaterial = new THREE.MeshLambertMaterial({
   map: Tree.prototype.consts.texture,
   alphaTest: Leaf.prototype.consts.testAlpha
 });
+Tree.prototype.consts.branchGeometry = new THREE.CylinderGeometry(1 * 0.6, 1, 1);
 Tree.prototype.consts.branchRadiusBase = 0.25;
 Tree.prototype.consts.branchLengthBase = 2.0;
 Tree.prototype.consts.radiusTerminator = 0.01;
