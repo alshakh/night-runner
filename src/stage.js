@@ -1,4 +1,4 @@
-var Stage = function(dimX, dimY, dimZ, treeNum, shadow, debug) {
+var Stage = function(dimX, dimY, dimZ, shadow, debug) {
   if (shadow === undefined) shadow = false;
 
   this.dimX = dimX;
@@ -19,6 +19,7 @@ var Stage = function(dimX, dimY, dimZ, treeNum, shadow, debug) {
 
   /// Trees
   (function(){
+    var treeNum = 20;
     var trees = [];
     var t0 = new Tree(34, undefined, shadow);
     for (var i = 0; i < treeNum; i++) {
@@ -50,7 +51,7 @@ var Stage = function(dimX, dimY, dimZ, treeNum, shadow, debug) {
     var grassNum = 300;
     for (var i = 0; i < grassNum; i++) {
       var t = tallGrassFactory.mesh.clone();
-      t.position.x = RANDOM.probablyZeroRandom() * __this.dimX;
+      t.position.x = RANDOM.probablyZeroRandom() * __this.dimX * 0.6;
       t.position.y = RANDOM.nextDouble() * __this.dimY;
       t.rotation.z = Math.PI * 2 * RANDOM.nextDouble();
       var s = RANDOM.noise(0.3);
@@ -80,9 +81,7 @@ var Stage = function(dimX, dimY, dimZ, treeNum, shadow, debug) {
     __this.add(dome);
 
     __this.fixers.push(function() {
-      if (dome.position.y < __this.backLimit) {
-        dome.position.y = __this.backLimit - __this.consts.domeYOffset;
-      }
+        dome.position.y = __this.backLimit;
     });
   })();
 

@@ -16,7 +16,7 @@ var Runner = function(debug) {
   /// camera
   var cam = this.camera;
   cam.up.set(0, 0, 1);
-  cam.position.set(0, 0, 2);
+  cam.position.set(0, 0, 3);
   cam.lookAt(new THREE.Vector3(0, 1, 2));
   this.scene.add(cam);
 
@@ -31,16 +31,16 @@ var Runner = function(debug) {
   /// renderer
   this.renderer.setSize(window.innerWidth, window.innerHeight);
   containerElement.appendChild(this.renderer.domElement);
-  
+
 
 
 
   /// stage
-  this.stage = new Stage(40,30,30,40,shadow,this.debugMode);
+  this.stage = new Stage(52,40,30,shadow,this.debugMode);
   this.scene.add(this.stage);
 
   /// fog
-  this.scene.fog = new THREE.Fog(0x888888,0,30);
+  this.scene.fog = new THREE.Fog(0x888888,0,25);
 
   /// axis
   if (this.debugMode) {
@@ -85,11 +85,11 @@ Runner.prototype.consts.camera = {
   },
 };
 Runner.prototype.update = function(t) {
-  t = t/10;
+  t = t/2;
   // Running !
   var y = t *10;
   var x = this.stage.dimX/10 * Math.cos(t) + this.consts.camera.position.x;
-  var z = 1.5 * Math.sin(2 * t) + this.consts.camera.position.z;
+  var z = 0.5 * Math.sin(2 * t) + this.consts.camera.position.z;
 
   this.camera.position.set(x, y, z);
   this.consts.camera.lookAround(this.camera, t);

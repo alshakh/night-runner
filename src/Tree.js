@@ -70,7 +70,7 @@ tallGrassFactory.consts.material = new THREE.MeshLambertMaterial({
 tallGrassFactory.consts.standardTallGrassMesh = (function() {
   var m = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), tallGrassFactory.consts.material);
   m.matrixAutoUpdate = false;
-  m.matrix.multiply(new THREE.Matrix4().makeScale(5, 5, 5));
+  m.matrix.multiply(new THREE.Matrix4().makeScale(3,3,3));
   m.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 0, 0.5 / 2 - 0.5 / 11));
   m.matrix.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2));
   return m;
