@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
-
+<div id="loading-msg" align="center" style="font-size:40px;"> please wait. It will take a while </div>
 	<script src="js/Three.js"></script>
 	<script src="js/Stats.js"></script>
 <!--<script src="js/Stats.js"></script>
@@ -14,16 +14,21 @@
 <script src="js/THREEx.KeyboardState.js"></script>
 <script src="js/THREEx.FullScreen.js"></script>
 <script src="js/THREEx.WindowResize.js"></script>-->
-<script src="src/tree.js"></script>
+<script src="src/Tree.js"></script>
 <script src="src/stage.js"></script>
 <script src="src/ShowRoom.js"></script>
+<script src="src/Runner.js"></script>
 
 <script>
 //new THREE.Mesh(leafFactory.standardLeafGeometry, leafFactory.consts.material);//
 //var l = new THREE.Mesh(leafFactory.treeLeafGeometry, leafFactory.consts.material);
 //l.matrix.multiply(new THREE.Matrix4().makeScale(10,10,10));
 //var runner = new ShowRoom(new Tree(34),4);
+THREE.DefaultLoadingManager.onProgress = function ( item, loaded, total ) {
+    console.log( item, loaded, total );
+};
 new Runner(true);
+document.body.removeChild(document.getElementById("loading-msg"))
 /*
 "strict mode";
 var clock = new THREE.Clock();

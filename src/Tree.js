@@ -136,8 +136,8 @@ var Tree = function(seed, radius) {
     for (var i = 0; i < childNum; i++) {
       var cRadius = 2 * radius / childNum;
       var cLength = length / 1.3;
-      var cTh = 2 * Math.PI / childNum * i; // * noise();
-      var cPhi = phi; // *noise();
+      var cTh = 2 * Math.PI / childNum * i *noise();
+      var cPhi = phi *noise();
 
       var cMatrix = parentTransformations.clone();
       cMatrix.multiply(new THREE.Matrix4().makeTranslation(0, 0, length));
