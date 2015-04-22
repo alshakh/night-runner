@@ -62,45 +62,49 @@ var tallGrassFactory = {};
 tallGrassFactory.consts = {};
 tallGrassFactory.consts.texture = THREE.ImageUtils.loadTexture("../images/tallGrass.png");
 tallGrassFactory.consts.material = new THREE.MeshLambertMaterial({
- map: tallGrassFactory.consts.texture,
- transparent: true,
- alphaTest: leafFactory.consts.alphaTest,
- side: THREE.DoubleSide
+  map: tallGrassFactory.consts.texture,
+  transparent: true,
+  alphaTest: leafFactory.consts.alphaTest,
+  side: THREE.DoubleSide
 });
 tallGrassFactory.consts.standardTallGrassMesh = (function() {
-  var m = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5),tallGrassFactory.consts.material);
+  var m = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), tallGrassFactory.consts.material);
   m.matrixAutoUpdate = false;
-  m.matrix.multiply(new THREE.Matrix4().makeScale(5,5,5));
-  m.matrix.multiply(new THREE.Matrix4().makeTranslation(0,0,0.5 / 2 - 0.5 / 11));
-  m.matrix.multiply(new THREE.Matrix4().makeRotationX(Math.PI/2));
+  m.matrix.multiply(new THREE.Matrix4().makeScale(5, 5, 5));
+  m.matrix.multiply(new THREE.Matrix4().makeTranslation(0, 0, 0.5 / 2 - 0.5 / 11));
+  m.matrix.multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2));
   return m;
 })();
 
 tallGrassFactory.consts.createTriTallGrass = function() {
   var t1 = tallGrassFactory.consts.standardTallGrassMesh.clone();
   var t2 = t1.clone();
-
+  var s;
   t2.matrix =
-  new THREE.Matrix4().makeRotationZ(RANDOM.noise()*1/3*2*Math.PI).multiply(t2.matrix);
+    new THREE.Matrix4().makeRotationZ(RANDOM.noise() * 1 / 3 * 2 * Math.PI).multiply(t2.matrix);
+  s = RANDOM.noise();
+  t2.matrix = new THREE.Matrix4().makeScale(s, s, s).multiply(t2.matrix);
 
   var t3 = t1.clone();
   t3.matrix =
-  new THREE.Matrix4().makeRotationZ(RANDOM.noise()*2/3*2*Math.PI).multiply(t3.matrix);
+    new THREE.Matrix4().makeRotationZ(RANDOM.noise() * 2 / 3 * 2 * Math.PI).multiply(t3.matrix);
+  s = RANDOM.noise();
+  t3.matrix = new THREE.Matrix4().makeScale(s, s, s).multiply(t3.matrix);
 
   var geo = new THREE.Geometry();
-  THREE.GeometryUtils.merge(geo,t1);
-  THREE.GeometryUtils.merge(geo,t2);
-  THREE.GeometryUtils.merge(geo,t3);
-  return new THREE.Mesh(geo,tallGrassFactory.consts.material);
+  THREE.GeometryUtils.merge(geo, t1);
+  THREE.GeometryUtils.merge(geo, t2);
+  THREE.GeometryUtils.merge(geo, t3);
+  return new THREE.Mesh(geo, tallGrassFactory.consts.material);
 };
-tallGrassFactory.mesh = tallGrassFactory.consts.createTriTallGrass()
+tallGrassFactory.mesh = tallGrassFactory.consts.createTriTallGrass();
 ///
 /// Tree
 ///
 var Tree = function(seed, radius, shadow) {
   THREE.Object3D.call(this);
 
-  if ( shadow === undefined) shadow = false;
+  if (shadow === undefined) shadow = false;
 
   if (radius === undefined) radius = this.consts.branchRadiusBase;
 
@@ -142,8 +146,8 @@ var Tree = function(seed, radius, shadow) {
     for (var i = 0; i < childNum; i++) {
       var cRadius = 2 * radius / childNum;
       var cLength = length / 1.3;
-      var cTh = 2 * Math.PI / childNum * i *myRandom.noise();
-      var cPhi = phi *myRandom.noise();
+      var cTh = 2 * Math.PI / childNum * i * myRandom.noise();
+      var cPhi = phi * myRandom.noise();
 
       var cMatrix = parentTransformations.clone();
       cMatrix.multiply(new THREE.Matrix4().makeTranslation(0, 0, length));
@@ -164,7 +168,6 @@ var Tree = function(seed, radius, shadow) {
   var branchesMesh = new THREE.Mesh(branchesGeometry, this.consts.branchMaterial);
   this.add(branchesMesh);
   // combine leaves
-  console.log("LEAVES : " + leaves.length);
   var leavesGeometry = new THREE.Geometry();
   for (i = 0; i < leaves.length; i++) {
     THREE.GeometryUtils.merge(leavesGeometry, leaves[i]);
@@ -174,7 +177,7 @@ var Tree = function(seed, radius, shadow) {
   this.add(leavesMesh);
 
   // Cast Shadow
-  if(shadow) {
+  if (shadow) {
     leavesMesh.castShadow = true;
     branchesMesh.castShadow = true;
     leavesMesh.receiveShadow = true;

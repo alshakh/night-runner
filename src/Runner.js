@@ -25,12 +25,15 @@ var Runner = function(debug) {
   this.light.position.set(0,-1,1);
   this.scene.add(this.light);
   if(shadow) {
-    console.log("SHADOW is enabled");
+    console.info("SHADOW is enabled");
   }
 
   /// renderer
   this.renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(this.renderer.domElement);
+  containerElement.appendChild(this.renderer.domElement);
+  
+
+
 
   /// stage
   this.stage = new Stage(40,30,30,40,shadow,this.debugMode);
@@ -46,11 +49,10 @@ var Runner = function(debug) {
 
   // stats
  if (this.debugMode) {
-    console.log("ADDED");
     this.stats = new Stats();
     this.stats.domElement.style.position = 'absolute';
     this.stats.domElement.style.top = '0px';
-    document.body.appendChild(this.stats.domElement);
+    containerElement.appendChild(this.stats.domElement);
   }
 
   var myRunner = this;

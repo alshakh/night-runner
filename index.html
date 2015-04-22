@@ -1,36 +1,47 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-	<title>Final Project</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>Final Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
+<style>
+body {
+	margin : 0;
+	padding : 0;
+}
+</style>
 <body>
-<div id="loading-msg" align="center" style="font-size:40px;"> please wait. It will take a while </div>
+  <div id="loading-msg" align="center" style="font-size:40px;"> please wait. It will take a while </div>
+  <div id="container" style="margin:0; padding:0;"></div>
 	<script src="js/Three.js"></script>
-	<script src="js/Stats.js"></script>
-<!--<script src="js/Stats.js"></script>
+  <script src="js/Stats.js"></script>
+  <!--
 <script src="js/OrbitControls.js"></script>
 <script src="js/THREEx.KeyboardState.js"></script>
 <script src="js/THREEx.FullScreen.js"></script>
-<script src="js/THREEx.WindowResize.js"></script>-->
-<script src="src/Random.js"></script>
-<script src="src/Tree.js"></script>
-<script src="src/stage.js"></script>
-<script src="src/ShowRoom.js"></script>
-<script src="src/Runner.js"></script>
- // TALL grass looks almost real
+<script src="js/THREEx.WindowResize.js"></script>
+-->
+  <script src="src/Random.js"></script>
+  <script src="src/Tree.js"></script>
+  <script src="src/stage.js"></script>
+  <script src="src/ShowRoom.js"></script>
+  <script src="src/Runner.js"></script>
 
-<script>
+  <script>
+		console.log("TODO : make trees have taller trunks");
+		console.log("TODO : make a flower & butterfly");
 
-//var runner = new ShowRoom(tallGrassFactory.mesh,1);
+		var containerElement = document.getElementById("container");
 
-new Runner(true);
+		//var runner = new ShowRoom(tallGrassFactory.mesh,2);
 
+    new Runner(true);
 
-
-document.body.removeChild(document.getElementById("loading-msg"))
-</script>
+    document.body.removeChild(document.getElementById("loading-msg"))
+  </script>
 
 </body>
+
 </html>

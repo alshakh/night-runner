@@ -45,7 +45,7 @@ var Stage = function(dimX, dimY, dimZ, treeNum, shadow, debug) {
 
   /// grass
   (function(){
-    console.warn("No shadow for grass");
+    console.warn("No shadow for grass, YET");
     var grasses = [];
     var grassNum = 300;
     for (var i = 0; i < grassNum; i++) {

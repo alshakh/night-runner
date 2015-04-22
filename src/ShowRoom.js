@@ -25,7 +25,7 @@ var ShowRoom = function(object, R) {
 
   /// renderer
   this.renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(this.renderer.domElement);
+  containerElement.appendChild(this.renderer.domElement);
 
   /// axis
   this.scene.add(new THREE.AxisHelper(10));
@@ -33,7 +33,7 @@ var ShowRoom = function(object, R) {
   this.stats = new Stats();
   this.stats.domElement.style.position = 'absolute';
   this.stats.domElement.style.top = '0px';
-  document.body.appendChild(this.stats.domElement);
+  containerElement.appendChild(this.stats.domElement);
 
 
   var showRoom = this;
