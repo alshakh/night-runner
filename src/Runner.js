@@ -7,7 +7,6 @@ var Runner = function(debug) {
   this.clock = new THREE.Clock();
   this.scene = new THREE.Scene();
   this.camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-  //this.light = new THREE.PointLight(0xffffff);
 
   this.renderer = new THREE.WebGLRenderer();
 
@@ -16,13 +15,16 @@ var Runner = function(debug) {
   /// camera
   var cam = this.camera;
   cam.up.set(0, 0, 1);
-  cam.position.set(0, 0, 3);
+  cam.position.set(0, 0, 4);
   cam.lookAt(new THREE.Vector3(0, 1, 2));
   this.scene.add(cam);
 
   /// light
-  this.light = new THREE.DirectionalLight(0xffffff);
-  this.light.position.set(0,-1,1);
+  this.light = new THREE.PointLight(0xffffff);
+  this.light.intensity = 0.5;
+  this.lightDir = new THREE.DirectionalLight(0xaaaaaa);
+  this.lightDir.position.set(0,1,1);
+this.scene.add(this.lightDir);
   this.scene.add(this.light);
   if(shadow) {
     console.info("SHADOW is enabled");
@@ -36,11 +38,11 @@ var Runner = function(debug) {
 
 
   /// stage
-  this.stage = new Stage(52,40,30,shadow,this.debugMode);
+  this.stage = new Stage(42,30,30,shadow,this.debugMode);
   this.scene.add(this.stage);
 
   /// fog
-  this.scene.fog = new THREE.Fog(0x888888,0,25);
+  this.scene.fog = new THREE.Fog(0x333333,0,20);
 
   /// axis
   if (this.debugMode) {
@@ -81,7 +83,7 @@ Runner.prototype.consts.camera = {
     la.y += 1;
     la.x += 0.1 * Math.cos(1.3 * t);
     la.z += 0.1 * Math.sin(1.7 * t);
-    camera.lookAt(la);
+    return la;
   },
 };
 Runner.prototype.update = function(t) {
@@ -92,13 +94,19 @@ Runner.prototype.update = function(t) {
   var z = 0.5 * Math.sin(2 * t) + this.consts.camera.position.z;
 
   this.camera.position.set(x, y, z);
-  this.consts.camera.lookAround(this.camera, t);
+
+  var la = this.consts.camera.lookAround(this.camera, t);
+
+  this.camera.lookAt(la);
+  /*this.light.target.position.x = la.x;
+  this.light.target.position.y = la.y;
+  this.light.target.position.z = la.z;*/
 
   // update stage
   this.stage.update(t,this.camera.position.y);
 
   // update light
-  this.light.y = this.camera.position.y;
   this.light.x = this.camera.position.x;
+  this.light.y = this.camera.position.y;
   this.light.z = this.camera.position.z;
 };
