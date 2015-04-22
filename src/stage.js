@@ -2,7 +2,7 @@ var Stage = function() {
   THREE.Object3D.call(this);
 
   this.trees = [];
-  var treeNum = 1;
+  var treeNum = 20;
   var t0 = new Tree(34);
   for (var i = 0; i < treeNum; i++) {
     var t = t0.clone();
@@ -20,8 +20,8 @@ var Stage = function() {
 Stage.prototype = Object.create(THREE.Object3D.prototype);
 Stage.prototype.constructor = Stage;
 Stage.prototype.consts = {};
-Stage.prototype.consts.dimY = 20;
-Stage.prototype.consts.dimX = 100;
+Stage.prototype.consts.dimY = 50;
+Stage.prototype.consts.dimX = 50;
 
 Stage.prototype.update = function(runnerDistance) {
   this.backLimit = runnerDistance;
@@ -126,7 +126,6 @@ Runner.prototype.update = function(t) {
 
   // update stage
   this.stage.update(this.camera.position.y);
-
 
   // update light
   this.light.y = this.camera.position.y;
