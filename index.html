@@ -7,37 +7,38 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <style>
-body {
-	margin : 0;
-	padding : 0;
-}
+  body {
+    margin: 0;
+    padding: 0;
+  }
 </style>
+
 <body>
   <div id="loading-msg" align="center" style="font-size:40px;"> please wait</div>
   <div id="container" style="margin:0; padding:0;"></div>
-	<script src="js/Three.js"></script>
+  <script src="js/Three.js"></script>
   <script src="js/Stats.js"></script>
-  <!--
-<script src="js/OrbitControls.js"></script>
-<script src="js/THREEx.KeyboardState.js"></script>
-<script src="js/THREEx.FullScreen.js"></script>
-<script src="js/THREEx.WindowResize.js"></script>
--->
   <script src="src/Random.js"></script>
   <script src="src/Tree.js"></script>
   <script src="src/stage.js"></script>
   <script src="src/ShowRoom.js"></script>
   <script src="src/Runner.js"></script>
+  <script src="src/Moth.js"></script>
 
   <script>
-		console.log("TODO : make trees have taller trunks");
-		console.log("TODO : make a flower & butterfly");
+    /*console.log("TODO : make trees have taller trunks");
+    		console.log("TODO : make a flower & butterfly");*/
 
-		var containerElement = document.getElementById("container");
+    var containerElement = document.getElementById("container");
 
-		//var runner = new ShowRoom(tallGrassFactory.mesh,2);
+    //var showRoom = new ShowRoom(new Moth(),1,{shadow : true});
 
-    new Runner(true);
+    var runner = new Runner({
+      debugMode: true,
+      runForward: true,
+      moveCamera: true,
+      lookAround: true
+    });
 
     document.body.removeChild(document.getElementById("loading-msg"))
   </script>
