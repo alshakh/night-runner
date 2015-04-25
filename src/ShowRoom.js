@@ -9,7 +9,8 @@ var ShowRoom = function(object, R) {
 
   // init
   // object
-  this.scene.add(object);
+  this.thing = object;
+  this.scene.add(this.thing);
   this.camR = R * 2;
   /// camera
   var cam = this.camera;
@@ -61,4 +62,8 @@ ShowRoom.prototype.update = function(t) {
   this.camera.position.y = y;
   this.camera.position.z = z;
   this.camera.lookAt(new THREE.Vector3(0,0,0));
+
+  if(typeof this.thing.update === "function") {
+    this.thing.update(t);
+  }
 };
