@@ -93,6 +93,8 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
       t.position.z = 2;
       t.rotation.z = RANDOM.nextDouble()*Math.PI*2;
 
+      var s = RANDOM.noise();
+      t.scale.set(s,s,s);
       moths.push(t);
       __this.add(t);
     }
