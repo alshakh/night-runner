@@ -55,7 +55,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
   (function() {
 
     var grasses = [];
-    var grassNum = 500;
+    var grassNum = 150;
     var t0 = tallGrassFactory.mesh.clone();
     if (parameters.shadow) t0.traverse(enableShadow);
     for (var i = 0; i < grassNum; i++) {
@@ -64,7 +64,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
       t.position.x = RANDOM.probablyZeroRandom() * __this.dimX * 0.6;
       t.position.y = RANDOM.nextDouble() * __this.dimY;
       t.rotation.z = Math.PI * 2 * RANDOM.nextDouble();
-      var s = RANDOM.nextDouble()*0.4 + 0.6;
+      var s = RANDOM.nextDouble()*0.4 + 0.4;
 
       t.scale.set(s, s, s);
       grasses.push(t);
