@@ -3,6 +3,7 @@ var Moth = (function() {
 
   var mothWingTex = THREE.ImageUtils.loadTexture("../images/moth-rightWing.png");
   var mothWingMaterial = new THREE.MeshLambertMaterial({
+    color:0xaaaaaa,
     map: mothWingTex,
     transparent: true,
     alphaTest: 0.7,

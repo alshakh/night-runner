@@ -55,7 +55,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
   (function() {
 
     var grasses = [];
-    var grassNum = 300;
+    var grassNum = 500;
     var t0 = tallGrassFactory.mesh.clone();
     if (parameters.shadow) t0.traverse(enableShadow);
     for (var i = 0; i < grassNum; i++) {
@@ -64,7 +64,8 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
       t.position.x = RANDOM.probablyZeroRandom() * __this.dimX * 0.6;
       t.position.y = RANDOM.nextDouble() * __this.dimY;
       t.rotation.z = Math.PI * 2 * RANDOM.nextDouble();
-      var s = RANDOM.noise(0.3);
+      var s = RANDOM.nextDouble()*0.4 + 0.6;
+
       t.scale.set(s, s, s);
       grasses.push(t);
       __this.add(t);
@@ -83,7 +84,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
   /// moths
   (function() {
     var moths = [];
-    var mothNum = 10;
+    var mothNum = 20;
     var avgDistance = __this.dimY / (mothNum + 1);
     for (var i = 0; i < mothNum; i++) {
       var t = new Moth(RANDOM.nextDouble() * 1000);
@@ -181,8 +182,8 @@ Stage.prototype.consts.floorTexture = (function() {
 })();
 
 
-Stage.prototype.consts.floorMaterial = new THREE.MeshLambertMaterial({
-  color: 0x333333,
+Stage.prototype.consts.floorMaterial = new THREE.MeshBasicMaterial({
+  color: 0x666666,
   map: Stage.prototype.consts.floorTexture
 });
 Stage.prototype.update = function(t, runnerDistance) {

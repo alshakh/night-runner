@@ -95,7 +95,44 @@ tallGrassFactory.consts.createTriTallGrass = function() {
   THREE.GeometryUtils.merge(geo, t1);
   THREE.GeometryUtils.merge(geo, t2);
   THREE.GeometryUtils.merge(geo, t3);
-  return new THREE.Mesh(geo, tallGrassFactory.consts.material);
+
+
+
+  var g1 = geo.clone();
+  s = RANDOM.noise();
+  g1.applyMatrix(new THREE.Matrix4().makeScale(s,s,s));
+  g1.applyMatrix(new THREE.Matrix4().makeRotationZ(RANDOM.nextDouble()*Math.PI*2));
+
+  var g2 = geo.clone();
+  s = RANDOM.noise();
+  g2.applyMatrix(new THREE.Matrix4().makeScale(s,s,s));
+  g2.applyMatrix(new THREE.Matrix4().makeRotationZ(RANDOM.nextDouble()*Math.PI*2));
+
+  var g3 = geo.clone();
+  s = RANDOM.noise();
+  g3.applyMatrix(new THREE.Matrix4().makeScale(s,s,s));
+  g3.applyMatrix(new THREE.Matrix4().makeRotationZ(RANDOM.nextDouble()*Math.PI*2));
+
+  var g4 = geo.clone();
+  s = RANDOM.noise();
+  g4.applyMatrix(new THREE.Matrix4().makeScale(s,s,s));
+  g4.applyMatrix(new THREE.Matrix4().makeRotationZ(RANDOM.nextDouble()*Math.PI*2));
+
+  var g5 = geo.clone();
+  s = RANDOM.noise();
+  g5.applyMatrix(new THREE.Matrix4().makeScale(s,s,s));
+  g5.applyMatrix(new THREE.Matrix4().makeRotationZ(RANDOM.nextDouble()*Math.PI*2));
+
+  var geoNew = new THREE.Geometry();
+  geoNew.merge(g1,new THREE.Matrix4().makeTranslation(0.5,0.5,0));
+  geoNew.merge(g2,new THREE.Matrix4().makeTranslation(-0.5,0.5,0));
+  geoNew.merge(g3,new THREE.Matrix4().makeTranslation(0.5,-0.5,0));
+  geoNew.merge(g4,new THREE.Matrix4().makeTranslation(-0.5,-0.5,0));
+  geoNew.merge(g4,new THREE.Matrix4().makeTranslation(-1,-0.5,0));
+
+
+
+  return new THREE.Mesh(geoNew, tallGrassFactory.consts.material);
 };
 tallGrassFactory.mesh = tallGrassFactory.consts.createTriTallGrass();
 ///
