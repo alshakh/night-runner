@@ -1,9 +1,7 @@
 var Stage = (function() {
   "use strict";
 
-  function Stage(dimX, dimY, dimZ, parameters) {
-
-    if (parameters === undefined) parameters = {};
+  function Stage(dimX, dimY, dimZ) {
 
     this.dimX = dimX;
     this.dimY = dimY;
@@ -30,7 +28,6 @@ var Stage = (function() {
       var trees = [];
       var t0 = new Tree(34);
 
-      if (parameters.shadow) t0.traverse(enableShadow);
 
       for (var i = 0; i < treeNum; i++) {
         var t = t0.clone();
@@ -59,7 +56,7 @@ var Stage = (function() {
       var grasses = [];
       var grassNum = 300;
       var t0 = new TallGrass();
-      if (parameters.shadow) t0.traverse(enableShadow);
+
       for (var i = 0; i < grassNum; i++) {
         var t = t0.clone();
 
@@ -90,7 +87,7 @@ var Stage = (function() {
       var flowers = [];
       var flowerNum = 70;
       var t0 = new Flower();
-      if (parameters.shadow) t0.traverse(enableShadow);
+
       for (var i = 0; i < flowerNum; i++) {
         var t = t0.clone();
 
@@ -121,7 +118,7 @@ var Stage = (function() {
       var avgDistance = __this.dimY / (mothNum + 1);
       for (var i = 0; i < mothNum; i++) {
         var t = new Moth(RANDOM.nextDouble() * 1000);
-        if (parameters.shadow) t.traverse(enableShadow);
+
         t.position.x = RANDOM.probablyZeroRandom() * __this.dimX;
         t.position.y = (RANDOM.nextDouble()) * __this.dimY;
         t.position.z = 2;
@@ -163,26 +160,12 @@ var Stage = (function() {
     })();
 
 
-    /// indicator
-    (function() {
-      if (parameters.debugMode) {
-        var dimYIndicator = new THREE.Mesh(new THREE.SphereGeometry(1));
-        __this.add(dimYIndicator);
-
-        __this.fixers.push(function() {
-          dimYIndicator.position.y = __this.backLimit + __this.dimY;
-        });
-      }
-    })();
-
 
     /// floor
     (function() {
       var floorA = new THREE.Mesh(new THREE.PlaneGeometry(__this.dimX, __this.dimY),
         __this.consts.floorMaterial);
       floorA.translateY(__this.dimY / 2);
-
-      if (parameters.shadow) floorA.receiveShadow = true;
 
       var floorB = floorA.clone();
       floorB.translateY(__this.dimY);

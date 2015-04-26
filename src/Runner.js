@@ -1,12 +1,10 @@
-var Runner = function(parameters) {
+var Runner = function() {
   var __this = this; // to be used in clousurs
 
   var dimX = 42;
   var dimY = 25;
   var dimZ = 30;
 
-  if (parameters === undefined) parameters = {};
-  if (parameters.runForward === undefined) parameters.runForward = true;
 
   this.updaters = []; // store update Functions
 
@@ -25,7 +23,7 @@ var Runner = function(parameters) {
 
   /// stage
   (function() {
-    var stage = new Stage(dimX, dimY + 10, dimZ, parameters);
+    var stage = new Stage(dimX, dimY + 10, dimZ);
     scene.add(stage);
 
     __this.updaters.push(function(t) {
@@ -61,23 +59,18 @@ var Runner = function(parameters) {
     __this.updaters.push(function(t) {
       var camPos = camera.position;
 
-      if (parameters.runForward) {
-        camPos.y = t * 5;
-      }
+      camPos.y = t * 5;
 
-      if (parameters.moveCamera) {
-        camPos.x = dimX / 30 * Math.cos(t);
-        camPos.z = 0.2 * Math.sin(2 * t) + cameraZ;
-      }
+      camPos.x = dimX / 30 * Math.cos(t);
+      camPos.z = 0.2 * Math.sin(2 * t) + cameraZ;
 
-      if (parameters.lookAround) {
-        var la = lookAround(t);
-        light.position.copy(camera.position);
+      var la = lookAround(t);
+      light.position.copy(camera.position);
 
-        la.add(camera.position);
-        light.target.position.copy(la);
-        camera.lookAt(light.target.position);
-      }
+      la.add(camera.position);
+      light.target.position.copy(la);
+      camera.lookAt(light.target.position);
+
     });
   })();
 
@@ -90,39 +83,13 @@ var Runner = function(parameters) {
     light.intensity = 1;
     light.exponent = 2;
     scene.add(light);
-
-    /*if (parameters.shadow) {
-      console.info("SHADOW is enabled");
-
-      light.castShadow = true;
-
-      light.shadowMapWidth = 1024;
-      light.shadowMapHeight = 1024;
-
-      light.shadowCameraNear = 0.1;
-      light.shadowCameraFar = dimY/2;
-      light.shadowCameraFov = light.angle*Math.PI/180;
-
-      light.shadowCameraVisible = true;
-      light.shadowDarkness = 1;
-
-      renderer.shadowMapEnabled = true;
-      //renderer.shadowMapType = THREE.PCFSoftShadowMap;
-    }*/
-
-    //__this.updaters.push(function(t) {});
   })();
 
   /// fog
   scene.fog = new THREE.Fog(0x111111, 0, dimY);
 
-  /// axis
-  if (parameters.debugMode) {
-    scene.add(new THREE.AxisHelper(10));
-  }
-
   // stats
-  if (parameters.drawAxis || parameters.debugMode) {
+
     var stats = new Stats();
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.top = '0px';
@@ -131,7 +98,7 @@ var Runner = function(parameters) {
     __this.updaters.push(function(t) {
       stats.update();
     });
-  }
+
 
   // Render function
   function render() {

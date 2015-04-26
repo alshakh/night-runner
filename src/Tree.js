@@ -145,6 +145,8 @@ var TallGrass = (function() {
 var Tree = (function() {
   "use strict";
 
+  var redLeavesMaterial = Leaf.prototype.consts.material.clone();
+  redLeavesMaterial.color.setHex(0xaa0000);
   function Tree(seed, radius) {
     THREE.Object3D.call(this);
 
@@ -156,6 +158,7 @@ var Tree = (function() {
 
     var branches = [];
     var leaves = [];
+    var redLeaves = [];
 
 
     var __this = this;
@@ -163,11 +166,18 @@ var Tree = (function() {
     function pushToBranchesAndLeaves(radius, length, parentTransformations) {
       if (parentTransformations === undefined) parentTransformations = new THREE.Matrix4();
       if (radius <= __this.consts.radiusTerminator) {
+
         // just a leaf and;
         var leaf = new THREE.Mesh(Leaf.prototype.consts.geometry);
         leaf.matrixAutoUpdate = false;
         leaf.matrix = parentTransformations;
-        leaves.push(leaf);
+
+        // red leaves 7% of the time;
+        if(myRandom.nextDouble() <= 0.07) {
+          redLeaves.push(leaf);
+        } else {
+          leaves.push(leaf);
+        }
         return;
       }
 
@@ -217,6 +227,14 @@ var Tree = (function() {
     var leavesMesh = new THREE.Mesh(leavesGeometry, Leaf.prototype.consts.material);
 
     this.add(leavesMesh);
+    // redLeaves
+    var redLeavesGeometry = new THREE.Geometry();
+    for (i = 0; i < redLeaves.length; i++) {
+      redLeavesGeometry.merge(redLeaves[i].geometry,redLeaves[i].matrix);
+    }
+    var redLeavesMesh = new THREE.Mesh(redLeavesGeometry, redLeavesMaterial);
+
+    this.add(redLeavesMesh);
   }
 
   Tree.prototype = Object.create(THREE.Object3D.prototype);
