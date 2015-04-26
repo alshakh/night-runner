@@ -19,21 +19,21 @@
   <script src="js/Three.js"></script>
   <script src="js/Stats.js"></script>
   <script src="src/Random.js"></script>
-  <script src="src/Tree.js"></script>
-  <script src="src/stage.js"></script>
+  <script src="src/plants.js"></script>
+  <script src="src/Stage.js"></script>
   <script src="src/ShowRoom.js"></script>
   <script src="src/Runner.js"></script>
   <script src="src/Moth.js"></script>
 
   <script>
-    /*console.log("TODO : make trees have taller trunks");
-    		console.log("TODO : make a flower & butterfly");*/
 
     var containerElement = document.getElementById("container");
 
-    //var showRoom = new ShowRoom(new Tree(34), 5);
+    /*var showRoom = new ShowRoom(new Tree(34), 5);
+    showRoom.render();*/
 
-    var runner = new Runner();
+    var runner = new Runner(4);
+    runner.render();
 
     document.body.removeChild(document.getElementById("loading-msg"))
   </script>

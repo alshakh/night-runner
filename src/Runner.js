@@ -1,5 +1,8 @@
-var Runner = function() {
+var Runner = function(runSpeed) {
   var __this = this; // to be used in clousurs
+
+  if(runSpeed === undefined) runSpeed = 5;
+  __this.runSpeed = runSpeed;
 
   var dimX = 42;
   var dimY = 25;
@@ -59,7 +62,7 @@ var Runner = function() {
     __this.updaters.push(function(t) {
       var camPos = camera.position;
 
-      camPos.y = t * 5;
+      camPos.y = t * __this.runSpeed;
 
       camPos.x = dimX / 30 * Math.cos(t);
       camPos.z = 0.2 * Math.sin(2 * t) + cameraZ;
@@ -106,8 +109,7 @@ var Runner = function() {
     renderer.render(scene, camera);
     __this.update(clock.getElapsedTime());
   }
-  render();
-
+  this.render = render;
 
 };
 Runner.prototype.constructor = Runner;
