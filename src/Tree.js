@@ -107,8 +107,8 @@ tallGrassFactory.consts.createTriTallGrass = function() {
     s = random.noise();
     g.applyMatrix(new THREE.Matrix4().makeScale(s, s, s));
     g.applyMatrix(new THREE.Matrix4().makeRotationZ(random.nextDouble() * Math.PI * 2));
-    geoNew.merge(g, new THREE.Matrix4().makeTranslation(random.nextDouble()*grassRangeX - grassRangeX / 2,
-    random.nextDouble() *grassRangeY - grassRangeY / 2, 0));
+    geoNew.merge(g, new THREE.Matrix4().makeTranslation(random.nextDouble() * grassRangeX - grassRangeX / 2,
+      random.nextDouble() * grassRangeY - grassRangeY / 2, 0));
   }
 
   return new THREE.Mesh(geoNew, tallGrassFactory.consts.material);
@@ -213,3 +213,90 @@ Tree.prototype.consts.branchGeometry = new THREE.CylinderGeometry(1 * 0.6, 1, 1)
 Tree.prototype.consts.branchRadiusBase = 0.25;
 Tree.prototype.consts.branchLengthBase = 2.0;
 Tree.prototype.consts.radiusTerminator = 0.01;
+
+
+
+
+
+var Flower = (function() {
+  "use strict";
+
+  var flowerLeg = (function() {
+    var CustomSinCurve = THREE.Curve.create(
+      function(scale) { //custom curve constructor
+        this.scale = (scale === undefined) ? 1 : scale;
+      },
+
+      function(t) { //getPoint: t is between 0-1
+        var tx = 0.2 * Math.sin(t * 2 / 3 * Math.PI),
+          ty = t,
+          tz = 0;
+
+        return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+      }
+    );
+
+    var path = new CustomSinCurve(1);
+
+    var geometry = new THREE.TubeGeometry(
+      path, //path
+      10, //segments
+      0.01, //radius
+      8, //radiusSegments
+      false //closed
+    );
+
+    geometry.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+
+    return geometry;
+  })();
+
+  var leafsGeometry = (function() {
+    var geo = new THREE.PlaneGeometry(0.5, 0.5);
+
+    geo.applyMatrix(new THREE.Matrix4().makeRotationZ(Math.PI / 2*3));
+    geo.applyMatrix(new THREE.Matrix4().makeTranslation(0.23,0.23,0));
+
+    geo.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI/3));
+    geo.applyMatrix(new THREE.Matrix4().makeRotationY(-1*Math.PI/3));
+    geo.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI/3));
+
+    var geometry = new THREE.Geometry();
+    geometry.merge(geo.clone());
+
+    geo.applyMatrix(new THREE.Matrix4().makeRotationZ(Math.PI/2));
+    geometry.merge(geo.clone());
+
+    geo.applyMatrix(new THREE.Matrix4().makeRotationZ(Math.PI/2));
+    geometry.merge(geo.clone());
+
+    geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0.2,0,0.6));
+    return geometry;
+  })();
+
+  var patalGeometry = (function() {
+    var geom = leafsGeometry.clone();
+    geom.applyMatrix(new THREE.Matrix4().makeScale(1,1,0.5));
+    geom.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,0.7));
+    return geom;
+  })();
+
+  var flowerMesh = new THREE.Mesh(flowerLeg, Tree.prototype.consts.branchMaterial);
+  var leafsMesh = new THREE.Mesh(leafsGeometry, leafFactory.consts.material);
+
+  var patalsMaterial = leafFactory.consts.material.clone();
+  patalsMaterial.color.setHex( 0xff0000);
+  var patalMesh = new THREE.Mesh(patalGeometry, patalsMaterial);
+
+  function Flower() {
+    THREE.Object3D.call(this);
+
+    this.add(flowerMesh.clone());
+    this.add(patalMesh.clone());
+    this.add(leafsMesh.clone());
+  }
+  Flower.prototype = Object.create(THREE.Object3D.prototype);
+  Flower.prototype.constructor = Flower;
+
+  return Flower;
+})();

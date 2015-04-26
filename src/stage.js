@@ -81,6 +81,37 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
     });
   })();
 
+
+  /// flowers
+  (function() {
+
+    var flowers = [];
+    var flowerNum = 100;
+    var t0 = new Flower();
+    if (parameters.shadow) t0.traverse(enableShadow);
+    for (var i = 0; i < flowerNum; i++) {
+      var t = t0.clone();
+
+      t.position.x = RANDOM.probablyZeroRandom() * __this.dimX * 0.6;
+      t.position.y = RANDOM.nextDouble() * __this.dimY;
+      t.rotation.z = Math.PI * 2 * RANDOM.nextDouble();
+      var s = RANDOM.noise();
+
+      t.scale.set(s, s, s);
+      flowers.push(t);
+      __this.add(t);
+    }
+    __this.fixers.push(function() {
+      for (var i = 0; i < flowers.length; i++) {
+        // fix trees
+        if (flowers[i].position.y < __this.backLimit) {
+          flowers[i].position.y += __this.dimY;
+          flowers[i].position.x = RANDOM.probablyZeroRandom() * __this.dimX;
+        }
+      }
+    });
+  })();
+
   /// moths
   (function() {
     var moths = [];
