@@ -29,11 +29,8 @@
 
     var containerElement = document.getElementById("container");
 
-    /*var showRoom = new ShowRoom(new Tree(34), 5);
-    showRoom.render();*/
-
-    var runner = new Runner(4);
-    runner.render();
+    var showRoom = new ShowRoom(new Moth(), 1);
+    showRoom.render();
 
     document.body.removeChild(document.getElementById("loading-msg"))
   </script>
