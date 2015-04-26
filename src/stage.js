@@ -55,7 +55,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
   (function() {
 
     var grasses = [];
-    var grassNum = 150;
+    var grassNum = 300;
     var t0 = tallGrassFactory.mesh.clone();
     if (parameters.shadow) t0.traverse(enableShadow);
     for (var i = 0; i < grassNum; i++) {
@@ -86,7 +86,7 @@ var Stage = function(dimX, dimY, dimZ, parameters) {
   (function() {
 
     var flowers = [];
-    var flowerNum = 100;
+    var flowerNum = 70;
     var t0 = new Flower();
     if (parameters.shadow) t0.traverse(enableShadow);
     for (var i = 0; i < flowerNum; i++) {
