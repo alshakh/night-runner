@@ -1,6 +1,6 @@
 var Leaf = (function() {
   "use strict";
-  var texture = THREE.ImageUtils.loadTexture("../images/leaf.png");
+  var texture = THREE.ImageUtils.loadTexture("images/leaf.png");
   var alphaTest = 0.7;
   var leafMaterial = new THREE.MeshLambertMaterial({
     map: texture,
@@ -70,7 +70,7 @@ var Leaf = (function() {
 var TallGrass = (function() {
   "use strict";
   var consts = {};
-  consts.texture = THREE.ImageUtils.loadTexture("../images/tallGrass.png");
+  consts.texture = THREE.ImageUtils.loadTexture("images/tallGrass.png");
   consts.material = new THREE.MeshLambertMaterial({
     map: consts.texture,
     transparent: true,
@@ -240,7 +240,7 @@ var Tree = (function() {
   Tree.prototype = Object.create(THREE.Object3D.prototype);
   Tree.prototype.constructor = Tree;
   Tree.prototype.consts = {};
-  Tree.prototype.consts.texture = THREE.ImageUtils.loadTexture("../images/bark-rough.jpg");
+  Tree.prototype.consts.texture = THREE.ImageUtils.loadTexture("images/bark-rough.jpg");
   Tree.prototype.consts.branchMaterial = new THREE.MeshLambertMaterial({
     map: Tree.prototype.consts.texture,
     alphaTest: Leaf.prototype.consts.alphaTest

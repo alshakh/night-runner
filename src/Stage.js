@@ -190,7 +190,7 @@ var Stage = (function() {
   //// floor texture
 
   Stage.prototype.consts.floorTexture = (function() {
-    var tex = THREE.ImageUtils.loadTexture("../images/grass.jpg");
+    var tex = THREE.ImageUtils.loadTexture("images/grass.jpg");
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
     tex.repeat.set(10, 10);
